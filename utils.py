@@ -25,8 +25,7 @@ class PCA(object):
         eig_index = sort_eig_index[:-(topK + 1):-1]
         self.main_vectors = eig_vectors[:, eig_index]
         x_low = datas.dot(self.main_vectors)
-        x_new = x_low.dot(self.main_vectors.T)+self.x_mean
-        return x_low, x_new
+        return x_low
 
     def transform(self, test_data):
         """
@@ -36,8 +35,7 @@ class PCA(object):
         """
         datas = test_data-self.x_mean
         x_low = datas.dot(self.main_vectors)
-        x_new = x_low.dot(self.main_vectors.T)+self.x_mean
-        return x_low, x_new
+        return x_low
 
 
 def read_data(input_path, label_path):
