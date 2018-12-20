@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.io
 
+
 class PCA(object):
     """
     the PCA class include two Attributes and three Methods
@@ -25,7 +26,7 @@ class PCA(object):
         eig_index = sort_eig_index[:-(topK + 1):-1]
         self.main_vectors = eig_vectors[:, eig_index]
         x_low = datas.dot(self.main_vectors)
-        return x_low
+        return np.real(x_low)
 
     def transform(self, test_data):
         """
@@ -35,10 +36,10 @@ class PCA(object):
         """
         datas = test_data-self.x_mean
         x_low = datas.dot(self.main_vectors)
-        return x_low
+        return np.real(x_low)
 
 
 def read_data(input_path, label_path):
     datas_mat = scipy.io.loadmat(input_path)
     labels_mat = scipy.io.loadmat(label_path)
-    return datas_mat, labels_mat
+    return datas_mat['Data'], labels_mat['Label']
